@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Serve _next/static files directly
+    RewriteRule ^_next/static/ - [L]
+
+    # Redirect all other requests to Next.js index page unless file exists
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ /index.html [QSA,L]
+</IfModule>
+
+# Serve static files for Next.js from _next directory
+<Directory "/var/www/akber-revamp/fe/_next/static">
+    Options FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+
