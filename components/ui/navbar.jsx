@@ -11,21 +11,12 @@ export const Navbar = ({ activeItem }) => {
       alt: 'beranda',
       text: 'Beranda',
     },
-
     {
       href: '/donasi',
       imgSrc: '/img/icons/navbar/2. Program I.png',
       imgActiveSrc: '/img/icons/navbar/2. Program II.png',
       alt: 'donasi',
       text: 'Donasi',
-    },
-    {
-      href: '/infaq',
-      imgSrc: '/img/icons/navbar/1. Pembayaran I.png',
-      imgActiveSrc: '/img/icons/navbar/1. Pembayaran.png',
-      alt: 'infaq',
-      text: 'Infaq',
-      isCenter: true,
     },
     {
       href: '/donasi-rutin',
@@ -45,83 +36,42 @@ export const Navbar = ({ activeItem }) => {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-200 z-50 max-w-[640px] mx-auto">
-      <div className="flex items-end justify-around px-2 py-3 max-w-screen-xl mx-auto">
+      <div className="flex items-center justify-around max-w-screen-xl mx-auto">
         {navItems.map((item) => {
           const isActive = activeItem === item.href;
-          const isCenter = item.isCenter;
-
-          if (isCenter) {
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex flex-col items-center relative"
-              >
-                <div
-                  className={`
-                    flex flex-col items-center justify-center
-                    w-16 h-16 -mt-8 rounded-full shadow-xl
-                    transition-all duration-300 transform
-                    ${
-                      isActive
-                        ? 'bg-gradient-to-br from-primary-500 to-teal-600 scale-110'
-                        : 'bg-gradient-to-br from-primary-400 to-teal-500 hover:scale-105'
-                    }
-                  `}
-                >
-                  <Image
-                    src={isActive ? item.imgActiveSrc : item.imgSrc}
-                    alt={item.alt}
-                    width={24}
-                    height={24}
-                    className="brightness-0 invert"
-                  />
-                </div>
-                <span
-                  className={`
-                    text-xs mt-1 font-medium transition-colors duration-200
-                    ${isActive ? 'text-primary-600' : 'text-gray-600'}
-                  `}
-                >
-                  {item.text}
-                </span>
-              </Link>
-            );
-          }
 
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`
-                flex flex-col items-center justify-center
-                min-w-[60px] py-2 px-3 rounded-lg
-                transition-all duration-200
-                ${
-                  isActive
-                    ? 'text-primary-600'
-                    : 'text-gray-500 hover:text-primary-500 hover:bg-primary-50'
-                }
-              `}
+              className={`flex flex-col items-center justify-center min-w-[60px] transition-all duration-300 px-2 py-4 w-full ${
+                isActive
+                  ? 'border-t-[3px] border-primary-500 bg-gradient-to-b from-primary-100/70 via-primary-50 to-transparent'
+                  : ''
+              }`}
             >
-              <div className="relative mb-1">
+              <div
+                className={`mb-1.5 transition-all duration-300 ${
+                  isActive ? 'scale-110 opacity-100' : 'scale-100 opacity-90'
+                }`}
+              >
                 <Image
                   src={isActive ? item.imgActiveSrc : item.imgSrc}
                   alt={item.alt}
-                  width={20}
-                  height={20}
-                  className={`transition-transform duration-200 ${
-                    isActive ? 'scale-110' : ''
-                  }`}
+                  width={24}
+                  height={24}
+                  className="transition-all duration-300"
                 />
-                {/* {isActive && (
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary-600 rounded-full" />
-                )} */}
               </div>
+
               <span
                 className={`
-                  text-xs font-medium transition-all duration-200
-                  ${isActive ? 'text-primary-600' : 'text-gray-600'}
+                  text-xs font-normal transition-all duration-300
+                  ${
+                    isActive
+                      ? 'text-primary-500 translate-y-[-1px] opacity-100'
+                      : 'text-gray-500 opacity-80'
+                  }
                 `}
               >
                 {item.text}

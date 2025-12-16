@@ -1,11 +1,8 @@
 'use client';
 
-import { getIsTokenValid } from '@/service/FetchData';
-import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import React from 'react';
 import { FaChevronRight } from 'react-icons/fa';
-
-import Cookies from 'js-cookie';
-
 const navItems = [
   { href: '/tentang', label: 'Tentang' },
   { href: '/blogs', label: 'Blog' },
@@ -15,28 +12,7 @@ const navItems = [
 ];
 
 export const BtnNav = () => {
-  const [authToken, setAuthToken] = useState(null);
-  const [isTokenValid, setIsTokenValid] = useState(false);
-  useEffect(() => {
-    // const token = localStorage.getItem('authToken');
-    const token = Cookies.get('authToken');
-
-    setAuthToken(token);
-
-    if (token) {
-      // Validate the token
-      const validateToken = async () => {
-        try {
-          await getIsTokenValid();
-          setIsTokenValid(true);
-        } catch {
-          setIsTokenValid(false);
-        }
-      };
-
-      validateToken();
-    }
-  }, []);
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="container">
@@ -54,12 +30,10 @@ export const BtnNav = () => {
         ))}
       </ul>
       <div className="container">
-        {!(authToken && isTokenValid) ? (
+        {!isAuthenticated ?? (
           <a href="/login" className="btn button-white btn-block">
             Masuk
           </a>
-        ) : (
-          <></>
         )}
       </div>
     </div>

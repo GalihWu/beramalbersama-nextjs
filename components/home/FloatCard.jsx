@@ -1,50 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { FaPlusCircle } from 'react-icons/fa';
 
 import { useQuery } from '@tanstack/react-query';
-import { getMyAccount, getIsTokenValid } from '@/service/FetchData';
+import { getMyAccount } from '@/service/FetchData';
 import { numberFormatter } from '@/lib/formater';
 import { BiLogIn } from 'react-icons/bi';
-import Cookies from 'js-cookie';
+import { useAuth } from '@/context/AuthContext';
 
 export const FloatCard = () => {
-  const [authToken, setAuthToken] = useState(null);
-  const [isTokenValid, setIsTokenValid] = useState(false);
-  const [isCheckingToken, setIsCheckingToken] = useState(true);
-
-  // Check for authToken and validate it
-  useEffect(() => {
-    // const token = localStorage.getItem('authToken');
-    const token = Cookies.get('authToken');
-
-    setAuthToken(token);
-
-    if (token) {
-      // Validate the token
-      const validateToken = async () => {
-        try {
-          await getIsTokenValid();
-          setIsTokenValid(true);
-        } catch {
-          setIsTokenValid(false);
-        } finally {
-          setIsCheckingToken(false);
-        }
-      };
-
-      validateToken();
-    } else {
-      setIsCheckingToken(false); // No token found
-    }
-  }, []);
+  const { isAuthenticated, isChecking } = useAuth();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['HomeAccount'],
     queryFn: getMyAccount,
-    enabled: isTokenValid, // Only fetch if the token is valid
+    enabled: isAuthenticated,
     staleTime: 1000 * 60 * 5,
     cacheTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
@@ -59,7 +31,7 @@ export const FloatCard = () => {
     }
   }, [reff_code]);
 
-  if (!authToken && !isTokenValid) {
+  if (!isAuthenticated) {
     return (
       <div className="dompet-box gap-3 !justify-between">
         <div className="flex items-center gap-3">
@@ -88,7 +60,7 @@ export const FloatCard = () => {
     );
   }
 
-  if (isLoading || isCheckingToken)
+  if (isChecking & isLoading)
     return (
       <div className="dompet-box gap-3 !justify-between">
         <div className="flex items-center gap-3">

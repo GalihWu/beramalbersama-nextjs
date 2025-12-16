@@ -58,31 +58,32 @@ const CATEGORIES = [
 
 // Subcomponents
 const CategoryMenu = ({ categories }) => (
-  <div className="grid grid-cols-4 gap-4 py-8 md:py-12">
-    {categories.map((category) => (
+  <div className="grid grid-cols-4 pt-[4rem] pb-[2rem]">
+    {categories.map((category, index) => (
       <Link
         id={category.id}
-        className="group flex flex-col items-center justify-center text-center transition-transform hover:scale-105"
+        className="relative text-center flex flex-col justify-center items-center"
         href={category.href}
-        key={category.id}
+        key={index}
       >
-        <div className="relative mb-3">
+        <div className="relative w-[50px] md:w-[60px] mt-4">
+          {/* Badge NEW */}
           {category.new && (
-            <span className="absolute -top-2 -right-2 z-10 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg animate-pulse">
-              NEW
+            <span className="absolute -top-1 -right-1 text-[9px] bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-1.5 py-[2px] rounded-full font-bold shadow-md animate-pulse">
+              BARU
             </span>
           )}
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 p-3 shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:from-emerald-100 group-hover:to-teal-100">
-            <Image
-              width={80}
-              height={80}
-              alt={category.alt}
-              className="w-full h-full object-contain"
-              src={category.src}
-            />
-          </div>
+
+          <Image
+            width={50}
+            height={50}
+            alt={category.alt}
+            className="object-contain w-full h-full mx-auto hover:border border-tosca-primary rounded-full transition-all duration-150"
+            src={category.src}
+          />
         </div>
-        <p className="text-gray-700 text-xs md:text-sm font-medium group-hover:text-emerald-600 transition-colors">
+
+        <p className="text-gray-600 mt-1 text-sm md:text-base font-normal md:font-medium">
           {category.label}
         </p>
       </Link>
@@ -122,7 +123,7 @@ const CampaignSlider = ({ campaigns, title, subtitle, id }) => (
   <div>
     <div
       className={`homepage-editor-choice mb-0 p-4 ${
-        id === 'darurat' ? 'bg-[#fefae9]' : ' bg-white'
+        id === 'darurat' ? 'bg-secondary-100/80' : ' bg-white'
       }`}
     >
       <div className="homepage-editor-choice-header">
@@ -130,17 +131,17 @@ const CampaignSlider = ({ campaigns, title, subtitle, id }) => (
           <div className="m-0 text-semibold md:font-bold text-lg md:text-xl">
             {title}
           </div>
-          {subtitle && <p className="m-0 text-base md:text-lg">{subtitle}</p>}
+          {subtitle && <p className="m-0 text-lg md:text-xl">{subtitle}</p>}
         </div>
       </div>
       <div className="recommend-slider">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={16}
-          slidesPerView={1.2}
+          spaceBetween={12}
+          slidesPerView={1.4}
           breakpoints={{
             480: {
-              slidesPerView: 1.2,
+              slidesPerView: 1.4,
             },
             768: {
               slidesPerView: 2.3,
@@ -181,10 +182,7 @@ const CategorySection = ({ categories, onCategoryClick, onShowMore }) => (
         Pilih Kategori Donasi Favoritmu
       </div>
     </div>
-    <div
-      className="homepage-category two-column border-0 my-0 size-xs"
-      style={{ padding: '0px' }}
-    >
+    <div className="homepage-category two-column border-0 my-0 size-xs !p-0">
       {categories.slice(0, 4).map((category) => (
         <div
           key={category.id}
@@ -234,6 +232,7 @@ const Home = () => {
   const [category, setCategory] = useState('Semua');
   const [campaigns, setCampaigns] = useState([]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const donations = programVertical?.data || [];
 
   // Filter campaigns based on selected category
@@ -282,11 +281,7 @@ const Home = () => {
             }}
             loop={true}
             pagination={{
-              clickable: true,
-              el: '.banner-pagination',
-              bulletClass: 'swiper-pagination-bullet custom-bullet',
-              bulletActiveClass:
-                'swiper-pagination-bullet-active custom-bullet-active',
+              dynamicBullets: true,
             }}
             className="w-full"
           >
@@ -315,11 +310,6 @@ const Home = () => {
               </Link>
             </SwiperSlide>
           </Swiper>
-          {/* Pagination Container */}
-          <div
-            className=" banner-pagination  absolute bottom-6 md:bottom-4 left-1/2 -translate-x-1/2 z-10 
-                       flex items-center gap-2"
-          ></div>
           <FloatCard />
         </div>
       </div>
@@ -327,15 +317,26 @@ const Home = () => {
       {/* Homepage Content */}
       <div className="animate-fade-in-up">
         <div
-          className="homepage-content-wrapper size-xs"
+          className="homepage-content-wrapper size-xs !pb-0"
           style={{ paddingBottom: '2rem' }}
         >
           <div className="container">
             {/* Menu Donasi */}
-            <div className="homepage-xs-main-content pb-1 !pt-20">
+            <div className="homepage-xs-main-content pb-1">
               <CategoryMenu categories={CATEGORIES} />
             </div>
 
+            {/* image slider-1 */}
+            <div>
+              <Image
+                width={1200}
+                height={300}
+                className="w-full h-auto object-cover mb-4 rounded-lg"
+                src="/img/banner/JadiFundraiser.webp"
+                alt="Homepage Banner 1"
+                priority={false}
+              />
+            </div>
             {/* Campaign Sliders */}
             <CampaignSlider
               campaigns={programDarurat?.data}
@@ -344,6 +345,17 @@ const Home = () => {
               id="darurat"
             />
 
+            {/* image slider-2 */}
+            <div>
+              <Image
+                width={1200}
+                height={300}
+                className="w-full h-auto object-cover my-4 rounded-lg"
+                src="/img/banner/bannerForm.webp"
+                alt="Homepage Banner 1"
+                priority={false}
+              />
+            </div>
             <CampaignSlider
               campaigns={programRekomendasi?.data}
               title="Satu Langkah Kebaikan, Tumbuhkan Harapan untuk Saling Menguatkan"

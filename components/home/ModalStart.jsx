@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 const MODAL_STORAGE_KEY = 'lastModalShown';
-const ONE_HOUR = 60 * 60 * 1000; // 1 hour in milliseconds
+const ONE_HOUR = 1000; // 1 hour in milliseconds
+// const ONE_HOUR = 60 * 60 * 1000; // 1 hour in milliseconds
 
 export const ModalStart = () => {
   const [showModal, setShowModal] = useState(false);

@@ -7,6 +7,8 @@ import 'swiper/css/pagination';
 
 import ReactQueryProvider from '@/providers/QueryProvider';
 import { ToastProvider } from '@/context/ToastContext';
+import { AuthProvider } from '@/context/AuthContext';
+
 import TrafficSourceTracker from '@/components/global/TrafficSourceTracker';
 import GTMInitializer from '@/components/global/GTMInitializer';
 import FbPixelInitializer from '@/components/global/FbPixelLoader';
@@ -136,12 +138,13 @@ export default async function RootLayout({
             strategy="lazyOnload"
           />
         </Suspense>
-
-        <ToastProvider>
-          <ConfirmationModalProvider>
-            <ReactQueryProvider>{children}</ReactQueryProvider>
-          </ConfirmationModalProvider>
-        </ToastProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <ConfirmationModalProvider>
+              <ReactQueryProvider>{children}</ReactQueryProvider>
+            </ConfirmationModalProvider>
+          </ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );

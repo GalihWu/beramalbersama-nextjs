@@ -7,10 +7,6 @@ import { useData } from '@/context/DataContext';
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 export const BigBanner = () => {
   const { berandaBanner } = useData();
 
@@ -31,8 +27,7 @@ export const BigBanner = () => {
             nextEl: '.banner-arrow-right',
           }}
           pagination={{
-            el: '.banner-pagination',
-            clickable: true,
+            dynamicBullets: true,
           }}
           autoplay={{
             delay: 4000,
@@ -87,44 +82,7 @@ export const BigBanner = () => {
             </button>
           </>
         )}
-
-        {/* Pagination Bullets */}
-        {banners.length > 1 && (
-          <div
-            className="banner-pagination absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 z-10 
-                       flex items-center gap-2"
-            id="banner-images-bullets"
-          />
-        )}
       </div>
-
-      {/* Custom Pagination Styles */}
-      <style jsx global>{`
-        .banner-pagination .swiper-pagination-bullet {
-          width: 8px;
-          height: 8px;
-          background: rgba(255, 255, 255, 0.5);
-          opacity: 1;
-          transition: all 0.3s ease;
-        }
-
-        .banner-pagination .swiper-pagination-bullet-active {
-          width: 24px;
-          background: white;
-          border-radius: 4px;
-        }
-
-        @media (min-width: 768px) {
-          .banner-pagination .swiper-pagination-bullet {
-            width: 10px;
-            height: 10px;
-          }
-
-          .banner-pagination .swiper-pagination-bullet-active {
-            width: 32px;
-          }
-        }
-      `}</style>
     </div>
   );
 };
