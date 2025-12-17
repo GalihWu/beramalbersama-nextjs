@@ -316,10 +316,7 @@ const Home = () => {
 
       {/* Homepage Content */}
       <div className="animate-fade-in-up">
-        <div
-          className="homepage-content-wrapper size-xs !pb-0"
-          style={{ paddingBottom: '2rem' }}
-        >
+        <div className="bg-gray-100 rounded-t-2xl">
           <div className="container">
             {/* Menu Donasi */}
             <div className="homepage-xs-main-content pb-1">
@@ -390,8 +387,11 @@ const Home = () => {
               </div>
 
               <div className="flex justify-center pb-12">
-                <Link className="btn button-orange" href="/donasi">
-                  Lihat Program Lainnya
+                <Link
+                  href="/donasi"
+                  className="inline-flex items-center justify-center rounded-lg bg-secondary-200/70 hover:bg-secondary-300 text-orange-600 hover:text-orange-700 px-4 md:px-6 py-2.5 md:py-3 text-sm md:text-base font-semibold shadow-sm hover:shadow-md transition-all duration-200 ease-in-out active:scale-95"
+                >
+                  Lihat program lainnya
                 </Link>
               </div>
             </div>

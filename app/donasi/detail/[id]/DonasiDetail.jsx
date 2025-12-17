@@ -150,7 +150,7 @@ const DonasiDetail = ({ program, salur, donatur, fundraiser, project }) => {
                   key={tab.id}
                   className={`min-h-[38px] w-full text-base md:text-lg font-medium rounded-md transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-primary-500 text-white shadow-sm'
+                      ? 'bg-tosca-primary text-white shadow-sm'
                       : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
                   }`}
                   onClick={() => setActiveTab(tab.id)}

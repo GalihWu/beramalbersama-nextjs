@@ -4,10 +4,9 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getMyRutin } from '@/service/FetchData';
-import RutinRow from '../ui/skeleton/rutinRow';
+import RutinRow from '@/components/ui/skeleton/rutinRow';
 import { currencyFormatter } from '@/lib/formater';
-import { EmptyData } from '../ui/emptyData';
-import { BiLogIn } from 'react-icons/bi';
+import { EmptyData } from '@/components/ui/emptyData';
 
 function Card({ title, nominal, time, status, category, image }) {
   const [type, setType] = useState('');
@@ -31,13 +30,6 @@ function Card({ title, nominal, time, status, category, image }) {
           className="rounded-[4px] w-auto h-28 md:h-36 "
         />
         <div className="w-[calc(100%-108px)] ml-[8px] relative">
-          {/* <div
-            className={`sm:text-[18px] text-[12px] leading-[16px] font-semibold ${
-              status === 'aktif' ? 'text-primary-500' : 'text-gray'
-            }  sm:mb-[10px] mb-[4px]`}
-          >
-            {`Rutin ${status === 'aktif' ? 'Aktif' : 'Nonaktif'}`}
-          </div> */}
           <h2 className="text-dark text-[12px] sm:text-[15px] leading-[16px] my-0 max-h-[32px] overflow-hidden text-ellipsis line-clamp-2">
             {title}
           </h2>
@@ -46,9 +38,7 @@ function Card({ title, nominal, time, status, category, image }) {
               {`${currencyFormatter(nominal)}`}
             </span>
           </p>
-          {/* <div className="sm:text-[13px] text-[11px] absolute left-0 top-14 md:top-16 text-gray">
-            Via {payment_method}
-          </div> */}
+
           <div className="text-xs md:text-base leading-[16px] text-black absolute bottom-5 md:bottom-8 right-2 text-end ">
             {type}
           </div>
@@ -70,18 +60,14 @@ function Card({ title, nominal, time, status, category, image }) {
   );
 }
 
-export default function ListDonasiRutin({
-  authToken,
-  isTokenValid,
-  isCheckingToken,
-}) {
+export default function ListDonasiRutin({ isAuthenticated, isCheckingToken }) {
   const [activeTab, setActiveTab] = useState('active');
   const [listCard, setListCard] = useState([]);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['myRutin'],
     queryFn: getMyRutin,
-    enabled: isTokenValid,
+    enabled: isAuthenticated,
   });
 
   useEffect(() => {
@@ -91,19 +77,32 @@ export default function ListDonasiRutin({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, activeTab]);
 
-  if ((!authToken || !isTokenValid) && !isCheckingToken) {
+  if (!isAuthenticated && !isCheckingToken) {
     return (
-      <div className="mx-auto my-auto h-[60vh] bg-white container flex flex-col gap-3 justify-center items-center">
-        <h5 className="font-semibold text-lg md:text-xl">
-          Silahkan login untuk memulai Donasi Rutin
-        </h5>
-        <a
-          href="/login"
-          className="bg-primary-500 font-semibold rounded-lg text-white px-8 py-3 flex justify-center  items-center gap-3 text-base md:text-lg"
-        >
-          <BiLogIn size={20} />
-          Login
-        </a>
+      <div className="max-w-[640px] mx-auto px-[20px] mt-6 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
+        <div className="bg-gradient-to-r from-primary-50 to-blue-50 border-2 border-primary-200 rounded-2xl p-5 text-center shadow-md">
+          <div className="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-3 shadow-sm">
+            <div className=" w-7 h-7">
+              <Image
+                src="/img/logo.png"
+                alt="logo"
+                width={100}
+                height={100}
+                className="object-contain w-fulll h-full"
+              />
+            </div>
+          </div>
+          <h3 className="text-[16px] font-bold text-gray-800 mb-2">
+            Mulai Perjalanan Berbagi Anda
+          </h3>
+          <p className="text-[13px] text-gray-600 mb-4 leading-relaxed">
+            Login untuk mengatur donasi rutin dan raih pahala yang terus
+            mengalir
+          </p>
+          <Link href={'/login'} className="button-outline">
+            Login sekarang
+          </Link>
+        </div>
       </div>
     );
   }
@@ -122,8 +121,6 @@ export default function ListDonasiRutin({
       </section>
     );
   }
-
-  // console.log(data);
 
   return (
     <section className="w-full max-w-[640px] mx-auto p-[15px] lg:p-[20px] bg-white min-h-[calc(100dvh-375px)] pb-32 ">
@@ -154,7 +151,7 @@ export default function ListDonasiRutin({
         </div>
       </div>
       <div className="flex flex-col gap-[14px] py-[20px]">
-        {isLoading || isCheckingToken ? (
+        {isLoading ? (
           <div>
             <RutinRow />
             <RutinRow />

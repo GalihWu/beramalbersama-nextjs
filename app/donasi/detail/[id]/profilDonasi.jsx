@@ -41,7 +41,7 @@ export const ProfilDonasi = ({ programLink, projekSalur, salur }) => {
             </Link>
           )}
 
-          <div className="donate-profile-box !mb-0 bg-secondary-500 !rounded-t-lg !rounded-b-none !hidden">
+          <div className="donate-profile-box !mb-0 bg-cyan-primary !rounded-t-lg !rounded-b-none !hidden">
             <div className="flex flex-col md:flex-row gap-2 items-center justify-between">
               <div className="flex w-full gap-2 flex-col min-w-[180px] items-start md:items-center">
                 <div className="bg-cyan-100 px-4 flex gap-2 py-2 rounded-md text-base md:text-lg font-bold text-cyan-900 w-fit">
@@ -70,10 +70,10 @@ export const ProfilDonasi = ({ programLink, projekSalur, salur }) => {
           </div>
 
           <div
-            className={`text-14 cursor-pointer flex justify-between items-center border border-gray-500 rounded-b-lg px-3 max-h-[42px] bg-cyan-100 text-secondary-500`}
+            className={`text-14 cursor-pointer flex justify-between items-center border border-gray-500 rounded-b-lg px-3 max-h-[42px] bg-cyan-100 text-cyan-primary`}
             onClick={toggleDropdown}
           >
-            <h5 className={`text-strong my-3 md:my-1 mr-2 text-primary-500`}>
+            <h5 className={`text-strong my-3 md:my-1 mr-2 text-tosca-primary`}>
               LEGALITAS{' '}
               <span className="text-gray-500">( klik selengkapnya )</span>
             </h5>

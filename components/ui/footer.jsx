@@ -39,12 +39,12 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="w-full bg-gradient-to-br from-slate-50 to-white pb-[85px]">
+    <div className="w-full bg-gray-100 pb-[85px]">
       <div className="max-w-[640px] mx-auto">
         <div className="bg-white">
           <div className="pb-8 md:pb-12">
             {/* Main heading with gradient */}
-            <div className="mb-8 bg-secondary-100/70 px-8 py-8">
+            <div className="mb-8 bg-secondary-100 px-8 py-8">
               <h2 className="text-xl md:text-2xl font-bold text-center mb-6 text-slate-700">
                 Donasi Tanpa Batas, Kebaikan Tanpa Akhir.
               </h2>

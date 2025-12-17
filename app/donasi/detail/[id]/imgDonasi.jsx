@@ -57,10 +57,10 @@ export const ImgDonasi = ({ detailDonasi, handleChange, active, donatur }) => {
         /> */}
 
         <Link
-          className="flex w-full items-center gap-4 py-3 px-4 z-10 relative duration-200 transition-colors hover:bg-primary-200/10"
+          className="flex w-full items-center gap-4 py-3 px-4 z-10 relative duration-200 transition-colors hover:bg-tosca-200/10"
           href={`/mitra/${detailDonasi?.mitra.id}`}
         >
-          <div className="w-16 h-16 rounded-full bg-white border border-primary-500 overflow-hidden">
+          <div className="w-16 h-16 rounded-full bg-white border border-tosca-primary overflow-hidden">
             <Image
               src={detailDonasi?.mitra.image}
               loading="lazy"
@@ -72,7 +72,7 @@ export const ImgDonasi = ({ detailDonasi, handleChange, active, donatur }) => {
           </div>
           <div className="flex flex-col">
             <div className="font-medium">{detailDonasi?.mitra.name}</div>
-            <div className="text-secondary-500 text-sm flex gap-2 items-center w-fit bg-cyan-100/40 font-medium px-3 py-1 rounded-full -ml-2">
+            <div className="text-cyan-primary text-sm flex gap-2 items-center w-fit bg-cyan-100/40 font-medium px-3 py-1 rounded-full -ml-2">
               Verified{' '}
               <Image
                 width={36}
@@ -113,7 +113,7 @@ export const ImgDonasi = ({ detailDonasi, handleChange, active, donatur }) => {
                   className="!text-xs py-2 max-w-[200px]"
                 />
               </div>
-              <span className="text-lg md:text-xl text-primary-500 font-bold">
+              <span className="text-lg md:text-xl text-tosca-primary font-bold">
                 {currencyFormatter(
                   detailDonasi?.nominal_achieved - detailDonasi?.nominal_used ||
                     0
